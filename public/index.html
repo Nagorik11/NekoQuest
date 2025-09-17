@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agencia de Videojuegos | GameAgency</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <!-- Encabezado -->
+    <header class="bg-blue-900 text-white py-4 px-6 flex justify-between items-center">
+        <div class="logo">
+            <h1 class="text-2xl font-bold">GameAgency</h1>
+        </div>
+        <nav>
+            <ul class="flex space-x-6">
+                <li><a href="#home" class="hover:text-blue-300">Inicio</a></li>
+                <li><a href="#services" class="hover:text-blue-300">Servicios</a></li>
+                <li><a href="#portfolio" class="hover:text-blue-300">Portafolio</a></li>
+                <li><a href="#team" class="hover:text-blue-300">Equipo</a></li>
+                <li><a href="#contact" class="hover:text-blue-300">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección Inicio -->
+    <section id="home" class="bg-cover bg-center h-screen flex items-center justify-center" style="background-image: url('hero-bg.jpg');">
+        <div class="text-center text-white">
+            <h2 class="text-5xl font-bold mb-4">Bienvenido a GameAgency</h2>
+            <p class="text-xl mb-8">Tu socio estratégico en el mundo de los videojuegos.</p>
+            <a href="#services" class="bg-red-600 text-white px-6 py-3 rounded hover:bg-red-700 transition duration-300">Descubre nuestros servicios</a>
+        </div>
+    </section>
+
+    <!-- Sección Servicios -->
+    <section id="services" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Nuestros Servicios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Desarrollo de Videojuegos</h3>
+                    <p class="text-gray-600">Creamos experiencias inmersivas y únicas para jugadores de todo el mundo.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Marketing de Videojuegos</h3>
+                    <p class="text-gray-600">Promocionamos tus juegos en las plataformas más populares.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Consultoría</h3>
+                    <p class="text-gray-600">Te ayudamos a optimizar tus estrategias y maximizar tus ganancias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Portafolio -->
+    <section id="portfolio" class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Portafolio</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-6 rounded-lg shadow-md text-center">
+                    <img src="game1.jpg" alt="Juego 1" class="rounded-lg mb-4">
+                    <h3 class="text-2xl font-bold mb-2">Juego 1</h3>
+                    <p class="text-gray-400">Descripción breve del juego.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-md text-center">
+                    <img src="game2.jpg" alt="Juego 2" class="rounded-lg mb-4">
+                    <h3 class="text-2xl font-bold mb-2">Juego 2</h3>
+                    <p class="text-gray-400">Descripción breve del juego.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-md text-center">
+                    <img src="game3.jpg" alt="Juego 3" class="rounded-lg mb-4">
+                    <h3 class="text-2xl font-bold mb-2">Juego 3</h3>
+                    <p class="text-gray-400">Descripción breve del juego.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Equipo -->
+    <section id="team" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Nuestro Equipo</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <img src="member1.jpg" alt="Miembro 1" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Juan Pérez</h3>
+                    <p class="text-gray-600">CEO y Fundador</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <img src="member2.jpg" alt="Miembro 2" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">María López</h3>
+                    <p class="text-gray-600">Directora de Marketing</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <img src="member3.jpg" alt="Miembro 3" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Carlos Ramírez</h3>
+                    <p class="text-gray-600">Lead Developer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section id="contact" class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-12">Contacto</h2>
+            <form class="max-w-lg mx-auto">
+                <input type="text" placeholder="Nombre" class="w-full p-3 mb-4 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-600">
+                <input type="email" placeholder="Correo electrónico" class="w-full p-3 mb-4 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-600">
+                <textarea placeholder="Mensaje" rows="5" class="w-full p-3 mb-4 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+                <button type="submit" class="bg-red-600 text-white px-6 py-3 rounded hover:bg-red-700 transition duration-300">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Pie de Página -->
+    <footer class="bg-blue-900 text-white py-6 text-center">
+        <p>&copy; 2023 GameAgency. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
