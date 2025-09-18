@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NekoQuest - Aventura Felina</title>
+  <style type="text/css">
+    body {
+      margin: 0; overflow: hidden; background-color: #282c34; color: white;
+      font-family: 'Courier New', Courier, monospace; display: flex;
+      justify-content: center; align-items: center; min-height: 100vh;
+    }
+    canvas { background-color: #7f7f7f; border: 2px solid #555; display: block; }
+
+    /* --- ESTILOS DE PANTALLAS Y MENÚS --- */
+    .game-screen {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.85); display: none; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center; z-index: 100;
+      padding: 20px; /* Añadido padding para que el texto no se pegue */
+      box-sizing: border-box; /* Para que el padding no afecte el width/height */
+    }
+    .game-screen h1 { font-size: 3.5em; margin-bottom: 20px; text-shadow: 3px 3px 0px #ff00ff, -3px -3px 0px #00ffff; }
+    .game-screen h2 { font-size: 2em; margin-bottom: 40px; }
+    .game-screen button {
+      font-family: 'Courier New', Courier, monospace; font-size: 1.5em; padding: 15px 30px;
+      background-color: #fafafa; color: #282c34; border: 3px solid #555; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .game-screen button:hover { background-color: #ff00ff; color: white; border-color: #00ffff; transform: scale(1.1); }
+    .character-container { display: flex; gap: 30px; }
+    .char-option { font-size: 5em; cursor: pointer; transition: transform 0.2s ease-in-out; border: 4px solid transparent; padding: 10px; }
+    .char-option:hover { transform: scale(1.2); background-color: rgba(255, 255, 255, 0.1); border-color: #fff; }
+
+    /* --- Estilos de Inventario y Facetas --- */
+    #inventory-grid, #facet-grid { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; background-color: rgba(0,0,0,0.3); border: 2px solid #555; min-width: 300px; min-height: 100px; }
+    .item-card, .facet-card {
+        width: 120px; height: 120px; border: 3px solid #777;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        cursor: pointer; transition: all 0.2s ease;
+        padding: 5px;
+        font-size: 1.1em;
+    }
+    .item-card:hover, .facet-card:hover { background-color: rgba(255, 255, 255, 0.2); border-color: #fff; }
+    .item-card.equipped, .facet-card.active { border-color: #00ffff; box-shadow: 0 0 15px #00ffff; }
+    .item-char, .facet-char { font-size: 3em; margin-bottom: 5px; }
+    .item-ammo, .facet-charges { font-size: 1em; }
+    #inventory-screen p, #facet-select-screen p { margin-top: 30px; color: #aaa; }
+
+    /* --- NUEVO: Estilos de la Pantalla de Historia --- */
+    #story-screen-title { font-size: 2.5em; color: #00ffff; margin-bottom: 30px; }
+    #story-screen-text { font-size: 1.3em; line-height: 1.6; max-width: 700px; margin-bottom: 50px; }
+    #story-screen-continue { font-size: 1em; color: #aaa; cursor: pointer; }
+    #story-screen-continue:hover { color: white; }
+
+    /* --- Interfaz de Usuario (HUD) --- */
+    #hud { position: absolute; top: 15px; left: 15px; z-index: 50; font-size: 24px; color: white; text-shadow: 2px 2px 2px #000; }
+    #weapon-hud { position: absolute; top: 15px; right: 15px; z-index: 50; font-size: 24px; color: white; text-shadow: 2px 2px 2px #000; }
+    #facet-hud {
+        position: absolute; bottom: 15px; left: 15px; z-index: 50; font-size: 24px;
+        color: white; text-shadow: 2px 2px 2px #000; display: flex; align-items: center; gap: 5px;
+    }
+    #facet-hud .facet-char { font-size: 1.5em; }
+  </style>
+</head>
+<body>
+
+  <!-- PANTALLAS DE MENÚ -->
+  <div id="start-screen" class="game-screen">
+    <h1>NekoQuest</h1>
+    <h2>Una Aventura Felina</h2>
+    <button id="start-button">Empezar Juego</button>
+  </div>
+  <div id="character-select-screen" class="game-screen">
+    <h2>Elige tu Neko 🐾</h2>
+    <div class="character-container">
+      <div class="char-option" data-char="😺">😺</div>
+      <div class="char-option" data-char="😼">😼</div>
+      <div class="char-option" data-char="😻">😻</div>
+    </div>
+  </div>
+  <div id="pause-screen" class="game-screen">
+      <h1>PAUSA</h1>
+      <button id="resume-button">Reanudar</button>
+  </div>
+  <div id="win-screen" class="game-screen">
+      <h1>¡Misión Cumplida!</h1>
+      <h2 id="win-score"></h2>
+      <button id="play-again-button">Volver al Inicio</button>
+  </div>
+  <div id="game-over-screen" class="game-screen">
+    <h1>GAME OVER</h1>
+    <button id="retry-button">Intentar de Nuevo</button>
+  </div>
+  <div id="inventory-screen" class="game-screen">
+    <h1>Inventario</h1>
+    <div id="inventory-grid"></div>
+    <p>Haz clic en un objeto para equiparlo. Pulsa 'I' o 'Esc' para cerrar.</p>
+  </div>
+  <div id="facet-select-screen" class="game-screen">
+      <h1>Elige tu Faceta</h1>
+      <div id="facet-grid"></div>
+      <p>Pulsa 'F' o 'Esc' para cerrar.</p>
+  </div>
+  <!-- NUEVO: Pantalla de Historia -->
+  <div id="story-screen" class="game-screen">
+      <h1 id="story-screen-title"></h1>
+      <p id="story-screen-text"></p>
+      <div id="story-screen-continue">Haz clic para continuar...</div>
+  </div>
+  
+  <!-- Interfaz y Juego -->
+  <div id="hud"></div>
+  <div id="weapon-hud"></div>
+  <div id="facet-hud"></div>
+  <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+  <script src="game.js"></script>
+
+</body>
+</html>
